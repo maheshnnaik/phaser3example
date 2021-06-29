@@ -3,7 +3,9 @@ export default class Player extends Phaser.GameObjects.Sprite{
         super(config.scene, config.x, config.y, config.key);
         this.scene = config.scene;
         this.setOrigin(0.5, 1);
-        this.setScale(0.25);
+        this.setScale(0.2);
+        this.onGround = true;
+        this.canJump = true;
         this.jumpVelocity = 500;
         this.currentPos = config.y;
         this.scene.physics.world.enable(this);
@@ -14,7 +16,14 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.body.setGravityY(1000);
     }
     jump(){
-        this.body.setVelocityY(-this.jumpVelocity);
-        
+        if(this.canJump){
+            this.body.setVelocityY(-this.jumpVelocity);
+        }
+    }
+    die(){
+        console.log("die");
+        this.canJump = false;
+        this.body.setVelocity(0);
+        this.body.immovable = false;
     }
 }
