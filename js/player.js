@@ -14,6 +14,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.body.setCollideWorldBounds(true);
         this.scene.add.existing(this);
         this.body.setGravityY(1000);
+        this.scene.physics.add.collider(this.scene.square, this, (player, square)=>{square.body.setVelocityY(0);}, null, this.scene);
     }
     jump(){
         if(this.canJump){
